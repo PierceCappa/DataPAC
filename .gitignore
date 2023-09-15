@@ -1,0 +1,16 @@
+
+*.o
+*.out
+*.a
+*.csv
+*.obj
+*.lib
+*.dll
+*.obj
+.vscode/*
+Extras/*.cpp
+Extras/*.h
+*.exe
+bin/*
+*.vs
+*.txt
