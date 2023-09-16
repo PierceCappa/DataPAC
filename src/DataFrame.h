@@ -42,9 +42,6 @@ namespace DataPAC
 
 		bool readTitles;
 
-
-		int NumThreads;
-
 		//Inputs to this vector are,
 		//	The operation to be computed stored in queuedOperation.
 		//	The row to be operated on. In the case where either row doesnt exist or for whole data frame opeartions, than it will not be read. 
@@ -85,13 +82,13 @@ namespace DataPAC
 		//-----------------------Initialization Methods BEGIN-----------------------
 		//default constructor, creates an empty dataframe object.
 
-		DataFrame(int numThreads = 1);
+		DataFrame();
 
 		DataFrame(DataFrame* copyDF);	
 
 		//loads dataframe from file given the path to the file. currently accepted file types:
 		//	CSV
-		DataFrame(std::vector<NodeValue*> columnTypes, std::vector<std::string> labels, std::string fileAddress, bool firstRowIsLabels = true, int numThreads = 1);	
+		DataFrame(std::vector<NodeValue*> columnTypes, std::vector<std::string> labels, std::string fileAddress, bool firstRowIsLabels = true);	
 
 		~DataFrame();
 

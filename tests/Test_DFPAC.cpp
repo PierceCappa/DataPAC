@@ -10,28 +10,49 @@ int errorCount = 0;
 
 std::string testDescription = "";
 
+std::string testDataName = "DFTests.txt";
+std::vector<std::string> labels = {"previous_sale", "square_footage", "city", "id"};
 int testDataRows = 10000;
 int testDataColumns = 4;
 
-DataPAC::DataFrame df;
+
+/**
+ * This function is called by every test. It ensures that all tests start from the same initial dataset.
+*/
+DataPAC::DataFrame* createDataFrame() {
+    int testDataRows = 10000;
+    int testDataColumns = 4;
+
+    testingOutput = std::ofstream(testDataName);
+    //dataframe setup
+
+    std::vector<DataPAC::NodeValue*> sampleNodes = {new DataPAC::DPFloat(), new DataPAC::DPFloat(), new DataPAC::DPDiscrete(), new DataPAC::DPString()};
+    return new DataPAC::DataFrame(sampleNodes, labels, "Test.csv", true);
+
+}
+
+
 
 std::string toString(int num)
 {
     return std::to_string(num);
 }
 
+
+
 std::string testRead()
 {
+    DataPAC::DataFrame* df = createDataFrame();
 
     std::string errors = "";
 
-    if(df.Rows.size() != testDataRows)
+    if(df->Rows.size() != testDataRows)
     {
-        errors += "Wrong number rows. Expected " + toString(testDataRows) + " rows, but got " + toString(df.Rows.size()) + " rows instead.     ";
+        errors += "Wrong number rows. Expected " + toString(testDataRows) + " rows, but got " + toString(df->Rows.size()) + " rows instead.     ";
     }
-    if(df.DefaultRow->Values.size() != testDataColumns)
+    if(df->DefaultRow->Values.size() != testDataColumns)
     {
-        errors += "Wrong number columns. Expected " + toString(testDataColumns) + " columns, but got " + toString(df.DefaultRow->Values.size()) + " columns instead.";
+        errors += "Wrong number columns. Expected " + toString(testDataColumns) + " columns, but got " + toString(df->DefaultRow->Values.size()) + " columns instead.";
     }
     return errors;
 
@@ -39,21 +60,23 @@ std::string testRead()
 
 std::string testSplit()
 {
+    DataPAC::DataFrame* df = createDataFrame();
+
     DataPAC::DataFrame* train;
     DataPAC::DataFrame* test;
     float split = .6;
     
     std::string errors = "";
 
-    df.split(split, train, test);
+    df->split(split, train, test);
 
-    if(train->Rows.size() != df.Rows.size() * split)
+    if(train->Rows.size() != df->Rows.size() * split)
     {
-        errors += "Wrong number rows in train set. Expected " + toString(df.Rows.size() * split) + " rows, but got " + toString(train->Rows.size()) + " rows instead.     ";
+        errors += "Wrong number rows in train set. Expected " + toString(df->Rows.size() * split) + " rows, but got " + toString(train->Rows.size()) + " rows instead.     ";
     }
-    if(test->Rows.size() != (df.Rows.size() * .4))
+    if(test->Rows.size() != (df->Rows.size() * .4))
     {
-        errors += "Wrong number rows in test set. Expected " + toString(df.Rows.size() * .4) + " rows, but got " + toString(test->Rows.size()) + " rows instead.     ";
+        errors += "Wrong number rows in test set. Expected " + toString(df->Rows.size() * .4) + " rows, but got " + toString(test->Rows.size()) + " rows instead.     ";
     }
     return errors;
 
@@ -68,17 +91,19 @@ void sampleExpandRowsFunc(DataPAC::DataFrameRow* row)
 
 std::string testExpandRows()
 {
+    DataPAC::DataFrame* df = createDataFrame();
+
     std::string errors = "";
 
     std::vector<DataPAC::NodeValue*> newValueTypes = {new DataPAC::DPFloat()};   
     std::vector<std::string> labels = {"sample_addition"};
 
-    df.expandDataFrameRows(sampleExpandRowsFunc, labels, newValueTypes);
+    df->expandDataFrameRows(sampleExpandRowsFunc, labels, newValueTypes);
 
-    float expectedResult = (*df[0])["previous_sale"]->toFloat() + (*df[0])["square_footage"]->toFloat();
-    if((*df[0])["sample_addition"]->toFloat() != expectedResult )
+    float expectedResult = (*df->getRow(0))["previous_sale"]->toFloat() + (*df->getRow(0))["square_footage"]->toFloat();
+    if((*df->getRow(0))["sample_addition"]->toFloat() != expectedResult )
     {
-        errors += "Wrong number returned from test. Expected " + std::to_string(expectedResult) + ", but got " + std::to_string((*df[0])["sample_addition"]->toFloat());
+        errors += "Wrong number returned from test. Expected " + std::to_string(expectedResult) + ", but got " + std::to_string((*df->getRow(0))["sample_addition"]->toFloat());
     }
 
     return errors;
@@ -91,18 +116,19 @@ void sampleModifyDFFunction(DataPAC::DataFrameRow* row)
 
 std::string testModifyValues()
 {
+    DataPAC::DataFrame* df = createDataFrame();
+
     std::string errors = "";
-    float expectedResult = (*df[0])["previous_sale"]->toFloat() + 2;
+    float expectedResult = (*df->getRow(0))["previous_sale"]->toFloat() + 2;
 
-    df.modifyValues(sampleModifyDFFunction);
+    df->modifyValues(sampleModifyDFFunction);
 
-    if((*df[0])["previous_sale"]->toFloat() != expectedResult )
+    if((*df->getRow(0))["previous_sale"]->toFloat() != expectedResult )
     {
-        errors += "Wrong number returned from test. Expected " + std::to_string(expectedResult) + ", but got " + std::to_string((*df[0])["previous_sale"]->toFloat());
+        errors += "Wrong number returned from test. Expected " + std::to_string(expectedResult) + ", but got " + std::to_string((*df->getRow(0))["previous_sale"]->toFloat());
     }
     return errors;
 }
-
 
 
 
@@ -124,6 +150,7 @@ void runTest(std::string (*func)(), std::string description)
         if(potentialError != "")
         {
             testingOutput << "\n\n   Test Failure: " << testDescription<< "\n" << potentialError << "\n\n";
+            //std::cout << "\n\n   Test Failure: " << testDescription<< "\n" << potentialError << "\n\n";
             errorCount++;
         }
     }
@@ -138,14 +165,7 @@ void runTest(std::string (*func)(), std::string description)
 int main()
 {
     try
-    {   
-        testingOutput = std::ofstream("DFTests.txt");
-        //dataframe setup
-
-        std::vector<DataPAC::NodeValue*> sampleNodes = {new DataPAC::DPFloat(), new DataPAC::DPFloat(), new DataPAC::DPDiscrete(), new DataPAC::DPString()};
-        std::vector<std::string> labels = {"previous_sale", "square_footage", "city", "id"};
-        df = DataPAC::DataFrame (sampleNodes, labels, "Test.csv", true, 1);
-    
+    {       
 
         //place new tests here
         // EX: runTest(func, "Example Test")
@@ -160,11 +180,9 @@ int main()
         if(errorCount == 0)
         {
             testingOutput << "All tests have passed!!!!! \n\n";
+        } else {
+            testingOutput << errorCount << " Tests Failed!!!!! \n\n";
         }
-
-        //df.printToConsole();
-
-        testingOutput << "Jobs Done\n";
 
         testingOutput.close();
         return 0;

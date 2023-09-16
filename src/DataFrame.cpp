@@ -70,9 +70,8 @@ namespace DataPAC
 
 
 	
-    DataFrame::DataFrame(int numThreads)
+    DataFrame::DataFrame()
     {
-		this->NumThreads = numThreads;
 		this->ColumnDict = new std::map< std::string, int >();
 		this->DefaultRow = new DataFrameRow(this->ColumnDict);
     }
@@ -82,16 +81,14 @@ namespace DataPAC
 	{
 		this->DefaultRow = copyDF->DefaultRow;
 		this->readTitles = copyDF->readTitles;
-		this->NumThreads = copyDF->NumThreads;
 		this->ColumnDict = copyDF->ColumnDict;
 		this->DefaultRow = copyDF->DefaultRow;
 	}
 
-    DataFrame::DataFrame(std::vector<NodeValue*> sampleNodes, std::vector<std::string> labels, std::string fileAddress, bool firstRowIsLabels, int numThreads)
+    DataFrame::DataFrame(std::vector<NodeValue*> sampleNodes, std::vector<std::string> labels, std::string fileAddress, bool firstRowIsLabels)
 	{
 		this->newValuesChar = new std::vector<char*>();
 		this->readTitles = firstRowIsLabels;
-		this->NumThreads = numThreads;
 		this->ColumnDict = new std::map< std::string, int >();
 		this->DefaultRow = new DataFrameRow(this->ColumnDict);
 		this->createNewColumns(sampleNodes, labels);

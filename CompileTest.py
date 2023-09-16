@@ -51,9 +51,18 @@ currentDir = testDir
 print(currentDir)
 makeResult = subprocess.run(["make"], shell=True, cwd=currentDir)
 makeResult = subprocess.run([currentDir + '/' + 'Test_DFPAC.out'], shell=True, cwd=currentDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-print(makeResult)
+print("test process completed. A copy of the test outputs can be found at /tests/DFTests.txt")
+if(makeResult.returncode == 0):
+    print("tests completed correctly printing results")
+else:
+    print("tests did not complete")
+    print(makeResult)
+    print("pritning results")
 
+print('\n\n\n\n\n')
 
+with open("./tests/DFTests.txt", 'r') as f:
+    print(f.read())
 
 
 print("jobs done")
