@@ -7,6 +7,7 @@
 #include<map>
 #include<ctime>
 #include<stdlib.h>
+#include<fstream>
 
 #include"DataFrameRow.h"
 
@@ -71,7 +72,7 @@ namespace DataPAC
 
 		//-----------------------Data Frame Members BEGIN-----------------------
 
-		std::map< std::string, int >* ColumnDict;
+		std::map<std::string, int>* ColumnDict;
 
 		std::vector<DataFrameRow*> Rows;
 
@@ -131,13 +132,15 @@ namespace DataPAC
 		void split(double ratio, DataFrame*& dfOne, DataFrame*& dfTwo);
 
 		//----------------------Whole Data Frame Operations END-----------------------
-		//-----------------------Read From CSV Operators BEGIN-----------------------
+		//-----------------------Read/Write From CSV Operators BEGIN-----------------------
 
 		void setColumnTitles(std::vector<char*> columnTitles);
 
 		void readFromCSV(std::string fileAddress);
 
 		void createAndInsertNewRowFromCharVector(std::vector<char*> values);
+
+		void writeToCSV(std::string fileAddress);
 
 		//-----------------------Read From CSV Operators END-----------------------
 		//-----------------------Other Data Frame Methods BEGIN-----------------------

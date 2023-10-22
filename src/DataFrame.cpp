@@ -423,6 +423,31 @@ namespace DataPAC
 		}
 	}
 
+	void DataFrame::writeToCSV(std::string fileAddress) 
+	{
+		std::ofstream outputFile(fileAddress);
+		if(!outputFile) {
+			std::cout << "problem opening output csv file, exiting" << std::endl;
+			return;
+		}
+
+		std::vector columnNames = this->DefaultRow->getColumnNames();
+		if(columnNames.size() == 0) 
+			return;
+
+		outputFile << columnNames[0];
+		for(auto it = columnNames.begin() + 1; it != columnNames.end(); it++)
+			outputFile << "," << columnNames[0];
+			
+		outputFile << std::endl;
+
+		for(auto it = this->Rows.begin(); it != this->Rows.end(); it++) {
+			outputFile << (*it)->toString(",") << std::endl;
+		}
+
+		outputFile.close();
+	}
+
 	//-----------------------Read From CSV Operators END-----------------------
 	//-----------------------Other Data Frame Methods BEGIN-----------------------
 

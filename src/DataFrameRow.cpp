@@ -159,17 +159,42 @@ namespace DataPAC
         return conversion;
     }
 
-    void DataFrameRow::printRow(std::string space)
+    std::vector<std::string> DataFrameRow::getColumnNames()
     {
-        for(int i = 0; i < this->Values.size(); i++)
-        {
-            if(i != 0)
-            {
-                std::cout << space;
-            }
-            std::cout << this->Values[i]->toString();
+        std::vector<std::string> columnNamesInOrder;
+
+        for(int i = 0; i < this->ColumnDict->size(); i++) 
+            columnNamesInOrder.push_back("");
+
+        for(auto it = this->ColumnDict->begin(); it != this->ColumnDict->end(); it++) {
+            std::string key = it->first;
+            int keyIndex = this->convertColumnNamesToIndexs({key})[0];
+            columnNamesInOrder[keyIndex] = key;
+        }   
+        return columnNamesInOrder;
+    }   
+
+    void DataFrameRow::printRow(std::string delimiter)
+    {
+        std::cout << this->toString(delimiter);
+        std::cout << std::endl;
+    }
+
+    std::string DataFrameRow::toString(std::string delimiter) 
+    {
+        std::string output = "";
+
+        if(this->Values.size() == 0) {
+            return "";
         }
-        std::cout << "\n";
+        
+        output += this->Values[0]->toString();
+
+        for(auto it = this->Values.begin(); it != this->Values.end(); it++) {
+            output += delimiter + (*it)->toString();
+        }
+
+        return output;
     }
 
     //-----------------------Row Helper Function END----------------------

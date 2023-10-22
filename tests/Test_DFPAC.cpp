@@ -12,17 +12,25 @@ std::string testDescription = "";
 
 std::string testDataName = "DFTests.txt";
 std::vector<std::string> labels = {"previous_sale", "square_footage", "city", "id"};
-int testDataRows = 10000;
+int testDataRows = 1000000;
 int testDataColumns = 4;
+
+bool outputToConsole = true;
+
+
+
+void printString(std::string output) {
+    testingOutput << output;
+    if(outputToConsole) {
+        std::cout << output;
+    }
+}
 
 
 /**
  * This function is called by every test. It ensures that all tests start from the same initial dataset.
 */
 DataPAC::DataFrame* createDataFrame() {
-    int testDataRows = 10000;
-    int testDataColumns = 4;
-
     testingOutput = std::ofstream(testDataName);
     //dataframe setup
 
@@ -42,6 +50,8 @@ std::string toString(int num)
 
 std::string testRead()
 {
+    printString("Testing DF read\n");
+
     DataPAC::DataFrame* df = createDataFrame();
 
     std::string errors = "";
@@ -54,12 +64,18 @@ std::string testRead()
     {
         errors += "Wrong number columns. Expected " + toString(testDataColumns) + " columns, but got " + toString(df->DefaultRow->Values.size()) + " columns instead.";
     }
+
+    df->deepClean();
+    free(df);
+
     return errors;
 
 }
 
 std::string testSplit()
 {
+    printString("Testing DF split\n");
+
     DataPAC::DataFrame* df = createDataFrame();
 
     DataPAC::DataFrame* train;
@@ -78,6 +94,10 @@ std::string testSplit()
     {
         errors += "Wrong number rows in test set. Expected " + toString(df->Rows.size() * .4) + " rows, but got " + toString(test->Rows.size()) + " rows instead.     ";
     }
+
+    df->deepClean();
+    free(df);
+
     return errors;
 
 }
@@ -91,6 +111,8 @@ void sampleExpandRowsFunc(DataPAC::DataFrameRow* row)
 
 std::string testExpandRows()
 {
+    printString("Testing DF Expand Rows\n");
+
     DataPAC::DataFrame* df = createDataFrame();
 
     std::string errors = "";
@@ -106,6 +128,9 @@ std::string testExpandRows()
         errors += "Wrong number returned from test. Expected " + std::to_string(expectedResult) + ", but got " + std::to_string((*df->getRow(0))["sample_addition"]->toFloat());
     }
 
+    df->deepClean();
+    free(df);
+
     return errors;
 }
 
@@ -116,6 +141,8 @@ void sampleModifyDFFunction(DataPAC::DataFrameRow* row)
 
 std::string testModifyValues()
 {
+    printString("Testing DF modify values\n");
+
     DataPAC::DataFrame* df = createDataFrame();
 
     std::string errors = "";
@@ -127,17 +154,33 @@ std::string testModifyValues()
     {
         errors += "Wrong number returned from test. Expected " + std::to_string(expectedResult) + ", but got " + std::to_string((*df->getRow(0))["previous_sale"]->toFloat());
     }
+
+    df->deepClean();
+    free(df);
+
     return errors;
 }
 
 
+std::string testOutputToCSV(){
+    DataPAC::DataFrame* df = createDataFrame();
+
+    df->writeToCSV("testOuput.csv");
+
+    free(df);
+
+    return "";
+} 
 
 
 
+std::string checkDeconstructor() {
+    DataPAC::DataFrame* df = createDataFrame();
 
+    free(df);
 
-
-
+    return "";
+}
 
 
 
@@ -149,14 +192,13 @@ void runTest(std::string (*func)(), std::string description)
         std::string potentialError = func();
         if(potentialError != "")
         {
-            testingOutput << "\n\n   Test Failure: " << testDescription<< "\n" << potentialError << "\n\n";
-            //std::cout << "\n\n   Test Failure: " << testDescription<< "\n" << potentialError << "\n\n";
+            printString("\n\n   Test Failure: " + testDescription + "\n" + potentialError + "\n\n"); 
             errorCount++;
         }
     }
     catch(const std::exception& e)
     {
-        testingOutput << "\n\n   Test Failed to Complete: " << testDescription << "\n" << e.what() << "\n\n";
+        printString("\n\n   Test Failed to Complete: " + testDescription + "\n" + e.what() + "\n\n");
         errorCount++;
     }
 }
@@ -174,6 +216,8 @@ int main()
         runTest(testSplit, "Making sure that the split function works");
         runTest(testExpandRows, "Testing expandDataFrameRows functionality");
         runTest(testModifyValues, "Testing the ability to modify dataframe values");
+        runTest(testOutputToCSV, "Testing the write to CSV feature");
+        runTest(checkDeconstructor, "Testing deconstructor");
         
         
         //testing end here

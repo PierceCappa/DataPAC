@@ -65,7 +65,12 @@ namespace DataPAC
 
         std::vector<int> convertColumnNamesToIndexs(std::vector<std::string> colums);
 
-        void printRow(std::string space = "   |   ");
+        //returns the column names in order of the indexs
+        std::vector<std::string> getColumnNames();
+
+        void printRow(std::string delimiter = "   |   ");
+
+        std::string toString(std::string delimiter);
 
         //-----------------------Row Helper Function END----------------------
     };

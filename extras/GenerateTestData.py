@@ -3,8 +3,26 @@ import random
 from xml.etree.ElementTree import tostring
 
 OutputName = "Test.csv"
-NumRows = 10000
+NumRows = 1000000
 File = open(OutputName, "w")
+
+
+#The following arrays are used to configure the output csv file. Each array must be of the same size or errors will occur.
+
+#these represent the column titles.   
+columnTitles = ["previous_sale", "square_footage", "city", "id"]
+#These determine the type each value in the column will be. By default only 3 values are supported, float, discrete or string. 
+columnTypes = ["float", "float", "discrete", "string"]
+#This array is used to determine the range of values that will be randomly generated.
+#   Float, a 2 value array where the min value is first followed by the max value
+#   discrete, a list of all possible values,
+#   string, a string containing all possible chars and then a 2 value array containg min and max string size.
+columnProperties =  [
+                        [50000, 9000000], 
+                        [600, 50000], 
+                        ["seattle", "tacoma", "spokane", "wenatchee", "new york", "bremerton", "bellvue"],
+                        ["abcdefghijklmnopqrstuvwxyz123456789", [6, 6]]
+                    ]
 
 DataInfo = [    ["previous_sale", "square_footage", "city", "id"],
                 ["float", "float", "discrete", "string"],
