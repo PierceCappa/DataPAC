@@ -187,10 +187,13 @@ namespace DataPAC
         if(this->Values.size() == 0) {
             return "";
         }
-        
-        output += this->Values[0]->toString();
 
-        for(auto it = this->Values.begin(); it != this->Values.end(); it++) {
+        //TODO add in edge case checks to make sure it is not null;
+        auto it = this->Values.begin();
+        output += (*it)->toString();
+        it++;
+
+        for(it; it != this->Values.end(); it++) {
             output += delimiter + (*it)->toString();
         }
 

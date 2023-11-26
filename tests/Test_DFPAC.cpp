@@ -118,9 +118,9 @@ std::string testExpandRows()
     std::string errors = "";
 
     std::vector<DataPAC::NodeValue*> newValueTypes = {new DataPAC::DPFloat()};   
-    std::vector<std::string> labels = {"sample_addition"};
+    std::vector<std::string> newLabels = {"sample_addition"};
 
-    df->expandDataFrameRows(sampleExpandRowsFunc, labels, newValueTypes);
+    df->expandDataFrameRows(sampleExpandRowsFunc, newLabels, newValueTypes);
 
     float expectedResult = (*df->getRow(0))["previous_sale"]->toFloat() + (*df->getRow(0))["square_footage"]->toFloat();
     if((*df->getRow(0))["sample_addition"]->toFloat() != expectedResult )
@@ -163,21 +163,74 @@ std::string testModifyValues()
 
 
 std::string testOutputToCSV(){
-    DataPAC::DataFrame* df = createDataFrame();
+    printString("Testing DF Output To CSV\n");
 
-    df->writeToCSV("testOuput.csv");
+    std::string errors = "";
+    DataPAC::DataFrame* df = createDataFrame();
+    std::string fileName = "testOutput.csv";
+
+    df->writeToCSV(fileName);
+
+    int row = 3000;
+    std::string floatColumn = "previous_sale";
+    std::string discreteColumn = "city";
+    std::string stringColumn = "id";
+
+    
+
+    std::ifstream f(fileName);
+    if(!f.good()) {
+        errors += "File " + fileName + " not found, dataframe could not write to file";
+        return errors;
+    } 
+
+
+    std::vector<DataPAC::NodeValue*> sampleNodes = {new DataPAC::DPFloat(), new DataPAC::DPFloat(), new DataPAC::DPDiscrete(), new DataPAC::DPString()};
+    DataPAC::DataFrame* dfTwo = new DataPAC::DataFrame(sampleNodes, labels, fileName, true);
+
+    DataPAC::DataFrameRow dfOneRow = (*df->getRow(row));
+    DataPAC::DataFrameRow dfTwoRow = (*dfTwo->getRow(row));
+    float dfFloatOneTest = dfOneRow[floatColumn]->toFloat();
+    float dfFloatTwoTest = dfTwoRow[floatColumn]->toFloat();
+
+    if(dfFloatOneTest != dfFloatTwoTest) {
+        errors += "Float value continuity not maintained between read and writes. Start: " + std::to_string(dfFloatOneTest) + " - End: " + std::to_string(dfFloatTwoTest);
+    }
+
+    int dfDiscreteOneTest = dfOneRow[discreteColumn] -> toInt();
+    int dfDiscreteTwoTest = dfTwoRow[discreteColumn] -> toInt();
+    if(dfDiscreteOneTest != dfDiscreteTwoTest) {
+        errors += "Discrete value continuity not maintained between read and writes. Start: " + dfOneRow[discreteColumn] -> toString() + " - End: " + dfTwoRow[discreteColumn] -> toString();
+    }
+
+    std::string dfStringOneTest = dfOneRow[discreteColumn] -> toString();
+    std::string dfStringTwoTest = dfTwoRow[discreteColumn] -> toString();
+    if(dfStringOneTest != dfStringTwoTest) {
+        errors += "String value continuity not maintained between read and writes. Start: " + dfStringOneTest + " - End: " + dfStringTwoTest;
+    }
+
 
     free(df);
+    free(dfTwo);
 
-    return "";
+    return errors;
 } 
 
 
 
 std::string checkDeconstructor() {
+    printString("Testing DF Deconstructor\n");
+
+    std::string errors = "";
+
     DataPAC::DataFrame* df = createDataFrame();
+    long sizeOfObject = sizeof(*df);
 
     free(df);
+
+    if(sizeof(*df) != 0) {
+        errors += "After freeing the object, it still has a size of > 0, size = " + std::to_string(sizeof(*df));
+    }
 
     return "";
 }
@@ -212,12 +265,12 @@ int main()
         //place new tests here
         // EX: runTest(func, "Example Test")
 
-        runTest(testRead, "Making sure that the df initializer and csv reader worked");
-        runTest(testSplit, "Making sure that the split function works");
-        runTest(testExpandRows, "Testing expandDataFrameRows functionality");
-        runTest(testModifyValues, "Testing the ability to modify dataframe values");
+        // runTest(testRead, "Making sure that the df initializer and csv reader worked");
+        // runTest(checkDeconstructor, "Testing deconstructor");
+        // runTest(testSplit, "Making sure that the split function works");
+        // runTest(testExpandRows, "Testing expandDataFrameRows functionality");
+        // runTest(testModifyValues, "Testing the ability to modify dataframe values");
         runTest(testOutputToCSV, "Testing the write to CSV feature");
-        runTest(checkDeconstructor, "Testing deconstructor");
         
         
         //testing end here

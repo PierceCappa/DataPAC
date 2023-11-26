@@ -47,22 +47,31 @@ namespace DataPAC
 	void DataFrame::createCStringFromBuf()
 	{
 		int charLength = this->newValueEndIndex - this->newValueStartIndex;
-		
-		//memcpy(this->newValue, this->buf + this->newValueStartIndex, charLength);
-		if(this->leftovers != "")
-		{
-			this->newValue = (char*)malloc(charLength + 1 + this->leftovers.size());
-			strncpy(this->newValue, this->buf + this->newValueStartIndex, charLength);
-			strncpy(this->newValue + charLength, this->leftovers.c_str(), this->leftovers.size());
-			this->leftovers = "";
-			charLength += this->leftovers.size();
+		try {
+			//memcpy(this->newValue, this->buf + this->newValueStartIndex, charLength);
+			if(this->leftovers != "")
+			{
+				this->newValue = (char*)malloc(charLength + 1 + this->leftovers.size());
+				strncpy(this->newValue, this->buf + this->newValueStartIndex, charLength);
+				strncpy(this->newValue + charLength, this->leftovers.c_str(), this->leftovers.size());
+				this->leftovers = "";
+				charLength += this->leftovers.size();
+			}
+			else
+			{
+				if(charLength < 1) {
+					//This tends to occur multiple times at the end of the file.
+					this->newValue = (char*)malloc(1);
+					//std::cout << "new invalid char";
+				} else {
+					this->newValue = (char*)malloc(charLength + 1);
+					strncpy(this->newValue, this->buf + this->newValueStartIndex, charLength);
+				}
+			}
+			this->newValue[charLength] = '\0';
+		} catch(std::exception e) {
+			std::cout << "exception occured in reading new cstring" << std::endl;
 		}
-		else
-		{
-			this->newValue = (char*)malloc(charLength + 1);
-			strncpy(this->newValue, this->buf + this->newValueStartIndex, charLength);
-		}
-		this->newValue[charLength] = '\0';
 	}
 
 	//PUBLIC METHODS	
@@ -357,9 +366,13 @@ namespace DataPAC
 					
 					if (this->buf[i] == ',' || this->buf[i] == '\n')
 					{
+					
+
 						this->newValueEndIndex = i;
+
 						this->addNewValueToCharVector();
 						this->newValueStartIndex = i + 1;
+						
 
 						if (this->buf[i] == '\n')
 						{
@@ -437,7 +450,7 @@ namespace DataPAC
 
 		outputFile << columnNames[0];
 		for(auto it = columnNames.begin() + 1; it != columnNames.end(); it++)
-			outputFile << "," << columnNames[0];
+			outputFile << "," << *it;
 			
 		outputFile << std::endl;
 
