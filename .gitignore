@@ -13,4 +13,3 @@ Extras/*.h
 *.exe
 bin/*
 *.vs
-*.txt

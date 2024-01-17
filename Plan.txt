@@ -1,0 +1,16 @@
+Right now I have a good plan on things to do. Pivit design for large data set quick random access.
+
+The data frame will automatically write to binary uniform files while initially parsing files.
+    These files can either persist or be deleted after program end.
+    For random access, all rows must be the same size. This means that strings will have a uniform size.
+
+data frame will allow for long indexs.
+    Need to get rid of the operators, as they only accet int. Maybenot actually....
+
+in constructor, the user can specifiy max in memory data usage.
+    Per row data usage will be calculated on data frame startup.
+
+The files will be in binary for easy reading.
+
+I will need to add types for all other values. I may need to drastically improve code quality -
+    And simplicity to do this, as it will take a while.
