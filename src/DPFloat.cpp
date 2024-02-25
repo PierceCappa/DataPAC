@@ -3,7 +3,9 @@
 namespace DataPAC
 {
 
-	//-----------------------Initialization Methods BEGIN-----------------------
+    #pragma region ____________ Methods _____________________________________________________________________________________________
+    #pragma region >___________ Constructors ________________________________________________________________________________________
+
 
     DPFloat::DPFloat(){}
 
@@ -18,6 +20,11 @@ namespace DataPAC
     }
 
     DPFloat::DPFloat(float newValue){this->Value = newValue;}
+
+    #pragma endregion
+    #pragma region >___________ Node Value Virtual Methods __________________________________________________________________________
+    #pragma region >>__________ Virtual Copy Constructor and Deconstructor __________________________________________________________
+
 
     DPFloat::~DPFloat(){}
 
@@ -45,8 +52,9 @@ namespace DataPAC
 
     NodeValue* DPFloat::createNewNode(std::string newValue){return new DPFloat(std::stof(newValue));}
 
-	//-----------------------Initialization Methods END-----------------------
-    //-----------------------Set Value Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Setters _____________________________________________________________________________________________
+
 
     bool DPFloat::setValue(std::string newValue)
     {
@@ -126,9 +134,9 @@ namespace DataPAC
         }    
     }
 
-    //-----------------------Set Value Methods END-----------------------
-	//-----------------------General node value operators for overide BEGIN-----------------------
-    
+    #pragma endregion
+    #pragma region >>__________ NodeTypeOpertors ____________________________________________________________________________________
+
     ValueType DPFloat::getType(){return ValueType::Float;}
 
     std::string DPFloat::toString(){return std::to_string(this->Value);}
@@ -147,8 +155,9 @@ namespace DataPAC
 
     unsigned int DPFloat::toHash(){return this->Value;}
 
-	//-----------------------General node value operators for overide END-----------------------
-    //-----------------------Object Operators Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Logic Operators _____________________________________________________________________________________
+
 
     bool DPFloat::operator==(NodeValue* rightSide)
     {
@@ -157,26 +166,6 @@ namespace DataPAC
             return this->Value == rightSide->toFloat();
         }
         return false;
-    }
-
-    bool DPFloat::operator==(float rightSide){return this->Value == rightSide;}
-
-    bool DPFloat::operator==(int rightSide){return this->Value == rightSide;}
-
-    bool DPFloat::operator==(char* rightSide){ return false; }
-
-    bool DPFloat::operator==(std::string rightSide){ return false; }
-
-    bool DPFloat::operator==(void* rightSide)
-    {
-        try
-        {
-            return this->Value == *(float*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -190,26 +179,6 @@ namespace DataPAC
         return true;
     }
 
-    bool DPFloat::operator!=(float rightSide){return rightSide != this->Value;}
-
-    bool DPFloat::operator!=(int rightSide){return rightSide != this->Value;}
-
-    bool DPFloat::operator!=(char* rightSide){return true;}
-
-    bool DPFloat::operator!=(std::string rightSide){return true;}
-
-    bool DPFloat::operator!=(void* rightSide)
-    {
-        try
-        {
-            return this->Value != *(float*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return true;
-        }
-    }
-
 
 
     bool DPFloat::operator<(NodeValue* rightSide)
@@ -220,27 +189,6 @@ namespace DataPAC
         }
         return false;
     }
-    
-    bool DPFloat::operator<(float rightSide){return rightSide < this->Value;}
-
-    bool DPFloat::operator<(int rightSide){return this->Value < rightSide;}
-
-    bool DPFloat::operator<(char* rightSide){return false;}
-
-    bool DPFloat::operator<(std::string rightSide){return false;}
-
-    bool DPFloat::operator<(void* rightSide)
-    {
-        try
-        {
-            return this->Value < *(float*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
-    }
-
 
 
     bool DPFloat::operator>(NodeValue* rightSide)
@@ -250,26 +198,6 @@ namespace DataPAC
             return this->Value > rightSide->toFloat();
         }
         return false;
-    }
-    
-    bool DPFloat::operator>(float rightSide){return this->Value > rightSide;}
-
-    bool DPFloat::operator>(int rightSide){return this->Value > rightSide;}
-
-    bool DPFloat::operator>(char* rightSide){return false;}
-
-    bool DPFloat::operator>(std::string rightSide){return false;}
-
-    bool DPFloat::operator>(void* rightSide)
-    {
-        try
-        {
-            return this->Value > *(float*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }        
     }
 
 
@@ -283,26 +211,6 @@ namespace DataPAC
         return false;
     }
 
-    bool DPFloat::operator<=(float rightSide){return this->Value <= rightSide;}
-
-    bool DPFloat::operator<=(int rightSide){return this->Value <= rightSide;}
-
-    bool DPFloat::operator<=(char* rightSide){return false;}
-
-    bool DPFloat::operator<=(std::string rightSide){return false;}
-
-    bool DPFloat::operator<=(void* rightSide)
-    {
-        try
-        {
-            return this->Value <= *(float*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }        
-    }
-
 
 
     bool DPFloat::operator>=(NodeValue* rightSide)
@@ -313,27 +221,6 @@ namespace DataPAC
         }
         return false;
     }
-
-    bool DPFloat::operator>=(float rightSide){return this->Value >= rightSide;}
-
-    bool DPFloat::operator>=(int rightSide){return this->Value >= rightSide;}
-
-    bool DPFloat::operator>=(char* rightSide){return false;}
-
-    bool DPFloat::operator>=(std::string rightSide){return false;}
-
-    bool DPFloat::operator>=(void* rightSide)
-    {
-        try
-        {
-            return this->Value >= *(float*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }    
-    }
-
 
 
 
@@ -347,25 +234,6 @@ namespace DataPAC
         return DPFloat((float)0);
     }
 
-    float DPFloat::operator+(float rightSide){return this->Value + rightSide;}
-
-    float DPFloat::operator+(int rightSide){return this->Value + rightSide;}
-
-    std::string DPFloat::operator+(std::string rightSide){return rightSide;}
-
-    void* DPFloat::operator+(void* rightSide)
-    {
-        try
-        {
-            *(float*)rightSide += this->Value;
-            return rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return (void*)&this->Value;
-        }    
-    }
-
 
 
     NodeValue DPFloat::operator-(NodeValue* rightSide)
@@ -377,23 +245,6 @@ namespace DataPAC
         return DPFloat((float)0);        
     }
 
-    float DPFloat::operator-(float rightSide){return this->Value - rightSide;}
-
-    float DPFloat::operator-(int rightSide){return this->Value - rightSide;}
-
-    void* DPFloat::operator-(void* rightSide)
-    {
-        try
-        {
-            *(float*)rightSide -= this->Value;
-            return rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return (void*)&this->Value;
-        }    
-    }
-
 
 
     NodeValue DPFloat::operator*(NodeValue* rightSide)
@@ -403,23 +254,6 @@ namespace DataPAC
             return DPFloat(this->Value * rightSide->toFloat());
         }
         return DPFloat((float)0);              
-    }
-    
-    float DPFloat::operator*(float rightSide){return this->Value * rightSide;}
-
-    float DPFloat::operator*(int rightSide){return this->Value * rightSide;}
-
-    void* DPFloat::operator*(void* rightSide)
-    {
-        try
-        {
-            *(float*)rightSide *= this->Value;
-            return rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return (void*)&this->Value;
-        }    
     }
 
 
@@ -433,23 +267,6 @@ namespace DataPAC
         }
         return DPFloat((float)0);              
     }
-    
-    float DPFloat::operator/(float rightSide){return this->Value / rightSide;}
-
-    float DPFloat::operator/(int rightSide){return this->Value / rightSide;}
-
-    void* DPFloat::operator/(void* rightSide)
-    {
-        try
-        {
-            *(float*)rightSide /= this->Value;
-            return rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return (void*)&this->Value;
-        }    
-    }
 
     
 
@@ -461,24 +278,9 @@ namespace DataPAC
         }
         return DPFloat((int)this->Value);              
     }
-    
-    float DPFloat::operator%(float rightSide){return (int)this->Value % (int)rightSide;}
 
-    float DPFloat::operator%(int rightSide){return (int)this->Value % rightSide;}
-
-    void* DPFloat::operator%(void* rightSide)
-    {
-        try
-        {
-            *(float*)rightSide = (int)this->Value % (int)*(float*)rightSide;
-            return rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return rightSide;
-        }    
-    }
-
-    //-----------------------Object Operators Methods END-----------------------
+    #pragma endregion
+    #pragma endregion
+    #pragma endregion
 
 }

@@ -3,7 +3,8 @@
 
 namespace DataPAC
 {
-    //-----------------------Initialization Methods BEGIN-----------------------
+    #pragma region ____________ Methods _____________________________________________________________________________________________
+    #pragma region >___________ Constructors ________________________________________________________________________________________
 
     DPDiscrete::DPDiscrete(){this->createHashTable(200);}
 
@@ -14,6 +15,11 @@ namespace DataPAC
     DPDiscrete::DPDiscrete(int newValue, std::vector<std::string*>* newHashTable){this->hashTable = newHashTable; this->Value = newValue;}
 
     DPDiscrete::DPDiscrete(DPDiscrete* newValue){this->hashTable = newValue->hashTable; this->Value = newValue->Value;}
+
+    #pragma endregion
+    #pragma region >___________ Node Value Virtual Methods __________________________________________________________________________
+    #pragma region >>__________ Virtual Copy Constructor and Deconstructor __________________________________________________________
+
 
     DPDiscrete::~DPDiscrete(){}
 
@@ -31,8 +37,8 @@ namespace DataPAC
 
     NodeValue* DPDiscrete::createNewNode(float newValue){return new DPDiscrete(newValue, this->hashTable);}
 
-	//-----------------------Initialization Methods END-----------------------
-    //-----------------------Set Value Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Setters _____________________________________________________________________________________________
 
     bool DPDiscrete::setValue(std::string newValue)
     {
@@ -112,8 +118,9 @@ namespace DataPAC
         }
     }
 
-    //-----------------------Set Value Methods END-----------------------
-	//-----------------------General node value operators for overide BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ NodeTypeOpertors ____________________________________________________________________________________
+
 
     ValueType DPDiscrete::getType(){ return Discrete; }
 
@@ -134,8 +141,9 @@ namespace DataPAC
     unsigned int DPDiscrete::toHash(){return this->hash(*(*this->hashTable)[this->Value]);}
 
 
-	//-----------------------General node value operators for overide END-----------------------
-    //-----------------------Object Operators Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Logic Operators _____________________________________________________________________________________
+
 
     bool DPDiscrete::operator==(NodeValue* rightSide)
     {
@@ -144,26 +152,6 @@ namespace DataPAC
             return this->Value == rightSide->toInt();
         }
         return false;
-    }
-
-    bool DPDiscrete::operator==(float rightSide){return false;}
-
-    bool DPDiscrete::operator==(int rightSide){return false;}
-
-    bool DPDiscrete::operator==(char* rightSide){return this->toString() == rightSide;}
-
-    bool DPDiscrete::operator==(std::string  rightSide){return this->toString() == rightSide;}
-
-    bool DPDiscrete::operator==(void* rightSide)
-    {
-        try
-        {
-            return *(*this->hashTable)[this->Value] == *(std::string*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -177,27 +165,6 @@ namespace DataPAC
         return true;
     }
 
-    bool DPDiscrete::operator!=(float rightSide){return false;}
-
-    bool DPDiscrete::operator!=(int rightSide){return false;}
-
-    bool DPDiscrete::operator!=(char* rightSide){return this->toString() != rightSide;}
-
-    bool DPDiscrete::operator!=(std::string  rightSide){return this->toString() != rightSide;}
-
-    bool DPDiscrete::operator!=(void* rightSide)
-    {
-        try
-        {
-            return *(*this->hashTable)[this->Value] != *(std::string*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return true;
-        }
-    }
-
-
 
     bool DPDiscrete::operator<(NodeValue* rightSide)
     {
@@ -206,26 +173,6 @@ namespace DataPAC
             return this->Value < rightSide->toInt();
         }
         return false;
-    }
-    
-    bool DPDiscrete::operator<(float rightSide){return false;}
-
-    bool DPDiscrete::operator<(int rightSide){return false;}
-
-    bool DPDiscrete::operator<(char* rightSide){return this->toString() < rightSide;}
-
-    bool DPDiscrete::operator<(std::string  rightSide){return this->toString() < rightSide;}
-
-    bool DPDiscrete::operator<(void* rightSide)
-    {
-        try
-        {
-            return *(*this->hashTable)[this->Value] < *(std::string*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -237,26 +184,6 @@ namespace DataPAC
             return this->Value > rightSide->toInt();
         }
         return false;
-    }
-    
-    bool DPDiscrete::operator>(float rightSide){return false;}
-
-    bool DPDiscrete::operator>(int rightSide){return false;}
-
-    bool DPDiscrete::operator>(char* rightSide){return this->toString() > rightSide;}
-
-    bool DPDiscrete::operator>(std::string  rightSide){return this->toString() > rightSide;}
-
-    bool DPDiscrete::operator>(void* rightSide)
-    {
-        try
-        {
-            return *(*this->hashTable)[this->Value] > *(std::string*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -270,25 +197,6 @@ namespace DataPAC
         return false;
     }
 
-    bool DPDiscrete::operator<=(float rightSide){return false;}
-
-    bool DPDiscrete::operator<=(int rightSide){return false;}
-
-    bool DPDiscrete::operator<=(char* rightSide){return this->toString() <= rightSide;}
-
-    bool DPDiscrete::operator<=(std::string  rightSide){return this->toString() <= rightSide;}
-
-    bool DPDiscrete::operator<=(void* rightSide)
-    {
-        try
-        {
-            return *(*this->hashTable)[this->Value] <= *(std::string*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
-    }
 
 
 
@@ -301,84 +209,31 @@ namespace DataPAC
         return false;
     }
 
-    bool DPDiscrete::operator>=(float rightSide){return false;}
-
-    bool DPDiscrete::operator>=(int rightSide){return false;}
-
-    bool DPDiscrete::operator>=(char* rightSide){return this->toString() >= rightSide;}
-
-    bool DPDiscrete::operator>=(std::string  rightSide){return this->toString() >= rightSide;}
-
-    bool DPDiscrete::operator>=(void* rightSide)
-    {
-        try
-        {
-            return *(*this->hashTable)[this->Value] >= *(std::string*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
-    }
-
 
 
 
 
     NodeValue DPDiscrete::operator+(NodeValue* rightSide){return DPDiscrete(this);}
 
-    float DPDiscrete::operator+(float rightSide){return rightSide;}
-
-    float DPDiscrete::operator+(int rightSide){return rightSide;}
-
-    char* DPDiscrete::operator+(char* rightSide){return rightSide;}
-
-    std::string DPDiscrete::operator+(std::string rightSide){return rightSide;}
-
-    void* DPDiscrete::operator+(void* rightSide){return NULL;}
-
-
 
     NodeValue DPDiscrete::operator-(NodeValue* rightSide){return DPDiscrete(this);}
-
-    float DPDiscrete::operator-(float rightSide){return rightSide;}
-
-    float DPDiscrete::operator-(int rightSide){return rightSide;}
-
-    void* DPDiscrete::operator-(void* rightSide){return NULL;}
 
 
 
     NodeValue DPDiscrete::operator*(NodeValue* rightSide){return DPDiscrete(this);}
     
-    float DPDiscrete::operator*(float rightSide){return rightSide;}
-
-    float DPDiscrete::operator*(int rightSide){return rightSide;}
-
-    void* DPDiscrete::operator*(void* rightSide){return NULL;}
-
 
 
     NodeValue DPDiscrete::operator/(NodeValue* rightSide){return DPDiscrete(this);}
     
-    float DPDiscrete::operator/(float rightSide){return rightSide;}
-
-    float DPDiscrete::operator/(int rightSide){return rightSide;}
-
-    void* DPDiscrete::operator/(void* rightSide){return NULL;}
-
     
 
     NodeValue DPDiscrete::operator%(NodeValue* rightSide){return DPDiscrete(this);}
-    
-    float DPDiscrete::operator%(float rightSide){return rightSide;}
 
-    float DPDiscrete::operator%(int rightSide){return rightSide;}
+    #pragma endregion
+    #pragma endregion
+    #pragma region >__________ Discrete Operators ___________________________________________________________________________________
 
-    void* DPDiscrete::operator%(void* rightSide){return NULL;}
-
-    //-----------------------Object Operators Methods END-----------------------
-    //-----------------------Hashtable Operations BEGIN-----------------------
 
     //Using this hash: http://www.cse.yorku.ca/~oz/hash.html
     //Thanks Dan Bernstein
@@ -466,5 +321,6 @@ namespace DataPAC
         }
     }
 
-    //-----------------------Hashtable Operations END-----------------------
+    #pragma endregion
+    #pragma endregion
 }

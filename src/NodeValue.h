@@ -19,9 +19,8 @@ namespace DataPAC
     class NodeValue
     {
         public:
-        //-----------------------Class Members BEGIN-----------------------
-        //-----------------------Class Members END-----------------------
-		//-----------------------Initialization Methods BEGIN-----------------------
+        #pragma region ____________ Methods _________________________________________________________________________________________
+        #pragma region >___________ Constructors ____________________________________________________________________________________
 
 		NodeValue(){}
 
@@ -30,6 +29,11 @@ namespace DataPAC
         NodeValue(void* newValue){}
 
         NodeValue(NodeValue* newValue){}
+
+        #pragma endregion
+        #pragma region >___________ Node Value Virtual Methods ______________________________________________________________________
+        #pragma region >>__________ Virtual Copy Constructor and Deconstructor ______________________________________________________
+
 
         virtual ~NodeValue();
 
@@ -47,8 +51,9 @@ namespace DataPAC
 
         virtual NodeValue* createNewNode(std::string newValue);
 
-		//-----------------------Initialization Methods END-----------------------
-        //-----------------------Set Value Methods BEGIN-----------------------
+        #pragma endregion
+        #pragma region >>__________ Setters _________________________________________________________________________________________
+
 
         virtual bool setValue(std::string newValue);
 
@@ -62,8 +67,8 @@ namespace DataPAC
 
         virtual bool setValue(void* newValue);
 
-        //-----------------------Set Value Methods END-----------------------
-		//-----------------------General node value operators for overide BEGIN-----------------------
+        #pragma endregion
+		#pragma region >>__________ NodeTypeOpertors ________________________________________________________________________________
 
 		//returns a string of the current node type. Each node type should have a const string defined. returns "standardNode"
         virtual ValueType getType();
@@ -84,147 +89,45 @@ namespace DataPAC
 
         virtual unsigned int toHash();
 
-		//-----------------------General node value operators for overide END-----------------------
-        //-----------------------Object Operators Methods BEGIN-----------------------
+        #pragma endregion
+        #pragma region >>__________ Logic Operators _________________________________________________________________________________
 
         virtual bool operator==(NodeValue* rightSide);
 
-        virtual bool operator==(float rightSide);
-
-        virtual bool operator==(int rightSide);
-
-        virtual bool operator==(char* rightSide);
-
-        virtual bool operator==(std::string rightSide);
-
-        virtual bool operator==(void* rightSide);
-
-
-
         virtual bool operator!=(NodeValue* rightSide);
-
-        virtual bool operator!=(float rightSide);
-
-        virtual bool operator!=(int rightSide);
-
-        virtual bool operator!=(char* rightSide);
-
-        virtual bool operator!=(std::string rightSide);
-
-        virtual bool operator!=(void* rightSide);
-
 
 
         virtual bool operator<(NodeValue* rightSide);
-        
-        virtual bool operator<(float rightSide);
-
-        virtual bool operator<(int rightSide);
-
-        virtual bool operator<(char* rightSide);
-
-        virtual bool operator<(std::string rightSide);
-
-        virtual bool operator<(void* rightSide);
 
 
 
         virtual bool operator>(NodeValue* rightSide);
-        
-        virtual bool operator>(float rightSide);
-
-        virtual bool operator>(int rightSide);
-
-        virtual bool operator>(char* rightSide);
-
-        virtual bool operator>(std::string rightSide);
-
-        virtual bool operator>(void* rightSide);
-
 
 
         virtual bool operator<=(NodeValue* rightSide);
 
-        virtual bool operator<=(float rightSide);
-
-        virtual bool operator<=(int rightSide);
-
-        virtual bool operator<=(char* rightSide);
-
-        virtual bool operator<=(std::string rightSide);
-
-        virtual bool operator<=(void* rightSide);
-
-
 
         virtual bool operator>=(NodeValue* rightSide);
-
-        virtual bool operator>=(float rightSide);
-
-        virtual bool operator>=(int rightSide);
-
-        virtual bool operator>=(char* rightSide);
-
-        virtual bool operator>=(std::string rightSide);
-
-        virtual bool operator>=(void* rightSide);
-
-
-
 
 
         virtual NodeValue operator+(NodeValue* rightSide);
 
-        virtual float operator+(float rightSide);
-
-        virtual float operator+(int rightSide);
-
-        virtual std::string operator+(std::string rightSide);
-
-        virtual void* operator+(void* rightSide);
-
-
 
         virtual NodeValue operator-(NodeValue* rightSide);
-
-        virtual float operator-(float rightSide);
-
-        virtual float operator-(int rightSide);
-
-        virtual void* operator-(void* rightSide);
 
 
 
         virtual NodeValue operator*(NodeValue* rightSide);
-        
-        virtual float operator*(float rightSide);
-
-        virtual float operator*(int rightSide);
-
-        virtual void* operator*(void* rightSide);
-
 
 
         virtual NodeValue operator/(NodeValue* rightSide);
         
-        virtual float operator/(float rightSide);
-
-        virtual float operator/(int rightSide);
-
-        virtual void* operator/(void* rightSide);
-
-        
 
         virtual NodeValue operator%(NodeValue* rightSide);
         
-        virtual float operator%(float rightSide);
-
-        virtual float operator%(int rightSide);
-
-        virtual void* operator%(void* rightSide);
-
-        //-----------------------Object Operators Methods END-----------------------
-
+        #pragma endregion
+        #pragma endregion
+        #pragma endregion
     };
 
 

@@ -3,7 +3,8 @@
 
 namespace DataPAC
 {
-	//-----------------------Initialization Methods BEGIN-----------------------
+    #pragma region ____________ Methods _____________________________________________________________________________________________
+    #pragma region >___________ Constructors ________________________________________________________________________________________
 
     DPString::DPString(){this->Value = new char('\0');}
 
@@ -29,6 +30,11 @@ namespace DataPAC
         strcpy(this->Value,newValue->Value);
         this->Value[len] = '\0';
     }
+
+    #pragma endregion
+    #pragma region >___________ Node Value Virtual Methods __________________________________________________________________________
+    #pragma region >>__________ Virtual Copy Constructor and Deconstructor __________________________________________________________
+
 
     DPString::~DPString()
     {
@@ -59,8 +65,8 @@ namespace DataPAC
         
     NodeValue* DPString::createNewNode(std::string newValue){return new DPString(newValue);}
 
-	//-----------------------Initialization Methods END-----------------------
-    //-----------------------Set Value Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Setters _____________________________________________________________________________________________
 
     bool DPString::setValue(std::string newValue)    
     {
@@ -147,8 +153,8 @@ namespace DataPAC
         }    
     }
 
-    //-----------------------Set Value Methods END-----------------------
-	//-----------------------General node value operators for overide BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ NodeTypeOpertors ____________________________________________________________________________________
 
     ValueType DPString::getType(){return ValueType::String;}
 
@@ -168,8 +174,8 @@ namespace DataPAC
 
     unsigned int DPString::toHash(){return this->hash();}
 
-	//-----------------------General node value operators for overide END-----------------------
-    //-----------------------Object Operators Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Logic Operators _____________________________________________________________________________________
 
     bool DPString::operator==(NodeValue* rightSide)
     {
@@ -178,26 +184,6 @@ namespace DataPAC
             return this->Value == rightSide->getValue();
         }
         return false;
-    }
-
-    bool DPString::operator==(float rightSide){return false;}
-
-    bool DPString::operator==(int rightSide){return false;}
-
-    bool DPString::operator==(char* rightSide){return this->Value == rightSide;}
-
-    bool DPString::operator==(std::string rightSide){return this->Value == rightSide;}
-
-    bool DPString::operator==(void* rightSide)
-    {
-        try
-        {
-            return rightSide == (char*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -210,26 +196,6 @@ namespace DataPAC
         return true;
     }
 
-    bool DPString::operator!=(float rightSide){return true;}
-
-    bool DPString::operator!=(int rightSide){return true;}
-
-    bool DPString::operator!=(char* rightSide){return this->Value != rightSide;}
-
-    bool DPString::operator!=(std::string rightSide){return this->Value != rightSide;}
-
-    bool DPString::operator!=(void* rightSide)
-    {
-        try
-        {
-            return rightSide != (char*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return true;
-        }
-    }
-
 
 
     bool DPString::operator<(NodeValue* rightSide)
@@ -239,26 +205,6 @@ namespace DataPAC
             return this->Value < rightSide->getValue();
         }
         return false;
-    }
-    
-    bool DPString::operator<(float rightSide){return false;}
-
-    bool DPString::operator<(int rightSide){return false;}
-
-    bool DPString::operator<(char* rightSide){return this->Value < rightSide;}
-
-    bool DPString::operator<(std::string rightSide){return this->Value < rightSide;}
-
-    bool DPString::operator<(void* rightSide)
-    {
-        try
-        {
-            return rightSide < (char*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -270,26 +216,6 @@ namespace DataPAC
             return this->Value > rightSide->getValue();
         }
         return false;
-    }
-    
-    bool DPString::operator>(float rightSide){return false;}
-
-    bool DPString::operator>(int rightSide){return false;}
-
-    bool DPString::operator>(char* rightSide){return this->Value > rightSide;}
-
-    bool DPString::operator>(std::string rightSide){return this->Value > rightSide;}
-
-    bool DPString::operator>(void* rightSide)
-    {
-        try
-        {
-            return rightSide > (char*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
     }
 
 
@@ -303,26 +229,6 @@ namespace DataPAC
         return false;
     }
 
-    bool DPString::operator<=(float rightSide){return false;}
-
-    bool DPString::operator<=(int rightSide){return false;}
-
-    bool DPString::operator<=(char* rightSide){return this->Value <= rightSide;}
-
-    bool DPString::operator<=(std::string rightSide){return this->Value <= rightSide;}
-
-    bool DPString::operator<=(void* rightSide)
-    {
-        try
-        {
-            return rightSide <= (char*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
-    }
-
 
 
     bool DPString::operator>=(NodeValue* rightSide)
@@ -333,27 +239,6 @@ namespace DataPAC
         }
         return false;
     }
-
-    bool DPString::operator>=(float rightSide){return false;}
-
-    bool DPString::operator>=(int rightSide){return false;}
-
-    bool DPString::operator>=(char* rightSide){return this->Value >= rightSide;}
-
-    bool DPString::operator>=(std::string rightSide){return this->Value >= rightSide;}
-
-    bool DPString::operator>=(void* rightSide)
-    {
-        try
-        {
-            return rightSide >= (char*)rightSide;
-        }
-        catch(std::invalid_argument)
-        {
-            return false;
-        }
-    }
-
 
 
 
@@ -367,75 +252,28 @@ namespace DataPAC
         return DPString();
     }
 
-    float DPString::operator+(float rightSide){return 0;}
-
-    float DPString::operator+(int rightSide){return 0;}
-
-    char* DPString::operator+(char* rightSide)
-    {
-        return strcat(this->Value, rightSide);
-    }
-
-    std::string DPString::operator+(std::string rightSide)
-    {
-        return std::string(this->Value + rightSide);
-    }
-
-    void* DPString::operator+(void* rightSide)
-    {return rightSide;}
-
-
 
     NodeValue DPString::operator-(NodeValue* rightSide)
     {return DPString();}
-
-    float DPString::operator-(float rightSide){return 0;}
-
-    float DPString::operator-(int rightSide){return 0;}
-
-    void* DPString::operator-(void* rightSide)
-    {
-        return NULL;
-    }
 
 
 
     NodeValue DPString::operator*(NodeValue* rightSide)
     {return DPString();}
-    
-    float DPString::operator*(float rightSide){return false;}
-
-    float DPString::operator*(int rightSide){return false;}
-
-    void* DPString::operator*(void* rightSide)
-    {return NULL;}
 
 
 
     NodeValue DPString::operator/(NodeValue* rightSide)
     {return DPString();}
-    
-    float DPString::operator/(float rightSide){return 0.0;}
-
-    float DPString::operator/(int rightSide){return 0;}
-
-    void* DPString::operator/(void* rightSide)
-    {return NULL;}
 
     
 
     NodeValue DPString::operator%(NodeValue* rightSide)
     {return DPString();}
-    
-    float DPString::operator%(float rightSide){return 0.0;}
 
-    float DPString::operator%(int rightSide){return 0;}
-
-    void* DPString::operator%(void* rightSide)
-    {return NULL;}
-
-    //-----------------------Object Operators Methods END-----------------------
-    //-----------------------String Value Operators BEGIN-----------------------
+    #pragma endregion
+    #pragma endregion
+    #pragma region >__________ String Operators _____________________________________________________________________________________
 
     void DPString::deleteCurrentString()
     {
@@ -453,5 +291,6 @@ namespace DataPAC
         return hash;
     }
 
-    //-----------------------String Value Operators END-----------------------
+    #pragma endregion
+    #pragma endregion
 }

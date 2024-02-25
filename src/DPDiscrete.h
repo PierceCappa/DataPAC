@@ -14,13 +14,15 @@ namespace DataPAC
     class DPDiscrete: public NodeValue
     {
         public:
-        //-----------------------Class Members BEGIN-----------------------
+        #pragma region ____________ Properties ______________________________________________________________________________________
         
         std::vector<std::string*>* hashTable; 
 
         int Value;
-        //-----------------------Class Members END-----------------------
-        //-----------------------Initialization Methods BEGIN-----------------------
+
+        #pragma endregion
+        #pragma region ____________ Methods _________________________________________________________________________________________
+        #pragma region >___________ Constructors ____________________________________________________________________________________
 
         DPDiscrete();
 
@@ -31,6 +33,12 @@ namespace DataPAC
         DPDiscrete(int newValue, std::vector<std::string*>* newHashTable);
 
         DPDiscrete(DPDiscrete* newValue);
+
+        #pragma endregion
+        #pragma region >___________ Node Value Virtual Methods ______________________________________________________________________
+        #pragma region >>__________ Virtual Copy Constructor and Deconstructor ______________________________________________________
+
+
 
         ~DPDiscrete();
 
@@ -48,8 +56,8 @@ namespace DataPAC
         
         NodeValue* createNewNode(std::string newValue);
 
-		//-----------------------Initialization Methods END-----------------------
-        //-----------------------Set Value Methods BEGIN-----------------------
+        #pragma endregion
+        #pragma region >>__________ Setters _________________________________________________________________________________________
 
         bool setValue(std::string newValue);
 
@@ -63,8 +71,8 @@ namespace DataPAC
 
         bool setValue(void* newValue);
 
-        //-----------------------Set Value Methods END-----------------------
-		//-----------------------General node value operators for overide BEGIN-----------------------
+        #pragma endregion
+		#pragma region >>__________ NodeTypeOpertors ________________________________________________________________________________
 
 		//returns a string of the current node type. Each node type should have a const string defined. returns "standardNode"
         ValueType getType();
@@ -85,90 +93,41 @@ namespace DataPAC
 
         unsigned int toHash();
 
-		//-----------------------General node value operators for overide END-----------------------
-        //-----------------------Object Operators Methods BEGIN-----------------------
+        #pragma endregion
+        #pragma region >>__________ Logic Operators _________________________________________________________________________________
 
         bool operator==(NodeValue* rightSide);
 
-        bool operator==(float rightSide);
 
-        bool operator==(int rightSide);
-
-        bool operator==(char* rightSide);
-
-        bool operator==(std::string rightSide);
-
-        bool operator==(void* rightSide);
 
 
 
         bool operator!=(NodeValue* rightSide);
 
-        bool operator!=(float rightSide);
 
-        bool operator!=(int rightSide);
-
-        bool operator!=(char* rightSide);
-
-        bool operator!=(std::string rightSide);
-
-        bool operator!=(void* rightSide);
 
 
 
         bool operator<(NodeValue* rightSide);
         
-        bool operator<(float rightSide);
 
-        bool operator<(int rightSide);
-
-        bool operator<(char* rightSide);
-
-        bool operator<(std::string rightSide);
-
-        bool operator<(void* rightSide);
 
 
 
         bool operator>(NodeValue* rightSide);
         
-        bool operator>(float rightSide);
 
-        bool operator>(int rightSide);
-
-        bool operator>(char* rightSide);
-
-        bool operator>(std::string rightSide);
-
-        bool operator>(void* rightSide);
 
 
 
         bool operator<=(NodeValue* rightSide);
 
-        bool operator<=(float rightSide);
 
-        bool operator<=(int rightSide);
-
-        bool operator<=(char* rightSide);
-
-        bool operator<=(std::string rightSide);
-
-        bool operator<=(void* rightSide);
 
 
 
         bool operator>=(NodeValue* rightSide);
 
-        bool operator>=(float rightSide);
-
-        bool operator>=(int rightSide);
-
-        bool operator>=(char* rightSide);
-
-        bool operator>=(std::string rightSide);
-
-        bool operator>=(void* rightSide);
 
 
 
@@ -176,58 +135,35 @@ namespace DataPAC
 
         NodeValue operator+(NodeValue* rightSide);
 
-        float operator+(float rightSide);
-
-        float operator+(int rightSide);
-
-        char* operator+(char* rightSide);
-
-        std::string operator+(std::string rightSide);
-
-        void* operator+(void* rightSide);
-
 
 
         NodeValue operator-(NodeValue* rightSide);
 
-        float operator-(float rightSide);
 
-        float operator-(int rightSide);
-
-        void* operator-(void* rightSide);
 
 
 
         NodeValue operator*(NodeValue* rightSide);
         
-        float operator*(float rightSide);
 
-        float operator*(int rightSide);
-
-        void* operator*(void* rightSide);
 
 
 
         NodeValue operator/(NodeValue* rightSide);
         
-        float operator/(float rightSide);
 
-        float operator/(int rightSide);
-
-        void* operator/(void* rightSide);
 
         
 
         NodeValue operator%(NodeValue* rightSide);
         
-        float operator%(float rightSide);
 
-        float operator%(int rightSide);
 
-        void* operator%(void* rightSide);
+        #pragma endregion
+        #pragma endregion
+        #pragma region >__________ Discrete Operators _______________________________________________________________________________
 
-        //-----------------------Object Operators Methods END-----------------------
-        //-----------------------Hashtable Operations BEGIN-----------------------
+
 
         unsigned int hash(std::string string);
 
@@ -245,7 +181,9 @@ namespace DataPAC
 
         void replaceHashValue(int valueIndex, std::string newValue);
 
-        //-----------------------Hashtable Operations END-----------------------
+        #pragma endregion
+        #pragma endregion
+
 
 
       

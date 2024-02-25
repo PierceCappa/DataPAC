@@ -5,7 +5,9 @@ namespace DataPAC
 {
     NodeValue::~NodeValue(){}
 
-    //-----------------------Initialization Methods BEGIN-----------------------
+    #pragma region ____________ Methods _________________________________________________________________________________________
+    #pragma region >___________ Node Value Virtual Methods ______________________________________________________________________
+    #pragma region >>__________ Virtual Copy Constructor and Deconstructor ______________________________________________________
 
     NodeValue* NodeValue::createNewNode(){return NULL;}
     
@@ -20,20 +22,18 @@ namespace DataPAC
         
     NodeValue* NodeValue::createNewNode(std::string newValue){return NULL;}
 
-	//-----------------------Initialization Methods END-----------------------
-    //-----------------------Set Value Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Setters _________________________________________________________________________________________
 
     bool NodeValue::setValue(std::string newValue){return false;}
-
     bool NodeValue::setValue(char* newValue){return false;}
-
     bool NodeValue::setValue(float newValue){return false;}
     bool NodeValue::setValue(int newValue){return false;}
     bool NodeValue::setValue(NodeValue newValue){return false;}
     bool NodeValue::setValue(void* newValue){return false;}
 
-    //-----------------------Set Value Methods END-----------------------
-	//-----------------------General node value operators for overide BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ NodeTypeOpertors ________________________________________________________________________________
 
     ValueType NodeValue::getType(){return ValueType::Float;}
 
@@ -53,143 +53,34 @@ namespace DataPAC
 
     unsigned int NodeValue::toHash(){return 0;}
 
-	//-----------------------General node value operators for overide END-----------------------
-    //-----------------------Object Operators Methods BEGIN-----------------------
+    #pragma endregion
+    #pragma region >>__________ Logic Operators _________________________________________________________________________________
 
     bool NodeValue::operator==(NodeValue* rightSide){return false;}
 
-    bool NodeValue::operator==(float rightSide){return false;}
-
-    bool NodeValue::operator==(int rightSide){return false;}
-
-    bool NodeValue::operator==(char* rightSide){return false;}
-
-    bool NodeValue::operator==(std::string rightSide){return false;}
-
-    bool NodeValue::operator==(void* rightSide){return false;}
-
-
     bool NodeValue::operator!=(NodeValue* rightSide){return false;}
-    bool NodeValue::operator!=(float rightSide){return false;}
-
-    bool NodeValue::operator!=(int rightSide){return false;}
-
-    bool NodeValue::operator!=(char* rightSide){return false;}
-
-    bool NodeValue::operator!=(std::string rightSide){return false;}
-
-    bool NodeValue::operator!=(void* rightSide){return false;}
-
-
 
     bool NodeValue::operator<(NodeValue* rightSide){return false;}
-    
-    bool NodeValue::operator<(float rightSide){return false;}
-
-    bool NodeValue::operator<(int rightSide){return false;}
-
-    bool NodeValue::operator<(char* rightSide){return false;}
-
-    bool NodeValue::operator<(std::string rightSide){return false;}
-
-    bool NodeValue::operator<(void* rightSide){return false;}
-
-
 
     bool NodeValue::operator>(NodeValue* rightSide){return false;}
-    
-    bool NodeValue::operator>(float rightSide){return false;}
-
-    bool NodeValue::operator>(int rightSide){return false;}
-
-    bool NodeValue::operator>(char* rightSide){return false;}
-
-    bool NodeValue::operator>(std::string rightSide){return false;}
-
-    bool NodeValue::operator>(void* rightSide){return false;}
-
-
 
     bool NodeValue::operator<=(NodeValue* rightSide){return false;}
 
-    bool NodeValue::operator<=(float rightSide){return false;}
-
-    bool NodeValue::operator<=(int rightSide){return false;}
-
-    bool NodeValue::operator<=(char* rightSide){return false;}
-
-    bool NodeValue::operator<=(std::string rightSide){return false;}
-
-    bool NodeValue::operator<=(void* rightSide){return false;}
-
-
-
     bool NodeValue::operator>=(NodeValue* rightSide){return false;}
-
-    bool NodeValue::operator>=(float rightSide){return false;}
-
-    bool NodeValue::operator>=(int rightSide){return false;}
-
-    bool NodeValue::operator>=(char* rightSide){return rightSide;}
-
-    bool NodeValue::operator>=(std::string rightSide){return false;}
-
-    bool NodeValue::operator>=(void* rightSide){return false; }
-
-
 
 
 
     NodeValue NodeValue::operator+(NodeValue* rightSide){return rightSide;}
 
-    float NodeValue::operator+(float rightSide){return 0;}
-
-    float NodeValue::operator+(int rightSide){return 0;}
-
-    std::string NodeValue::operator+(std::string rightSide){return "";}
-
-    void* NodeValue::operator+(void* rightSide){return rightSide;}
-
-
-
     NodeValue NodeValue::operator-(NodeValue* rightSide){return NodeValue();}
 
-    float NodeValue::operator-(float rightSide){return 0;}
-
-    float NodeValue::operator-(int rightSide){return 0;}
-
-    void* NodeValue::operator-(void* rightSide){return NULL; }
-
-
-
     NodeValue NodeValue::operator*(NodeValue* rightSide){return rightSide;}
+
+    NodeValue NodeValue::operator/(NodeValue* rightSide){return NodeValue();}
     
-    float NodeValue::operator*(float rightSide){return 0;}
-
-    float NodeValue::operator*(int rightSide){return 0;}
-
-    void* NodeValue::operator*(void* rightSide){return NULL;}
-
-
-
-    NodeValue NodeValue::operator/(NodeValue* rightSide)
-    {return NodeValue();}
-    
-    float NodeValue::operator/(float rightSide){return 0.0;}
-
-    float NodeValue::operator/(int rightSide){return 0;}
-
-    void* NodeValue::operator/(void* rightSide){return NULL;}
-
-    
-
     NodeValue NodeValue::operator%(NodeValue* rightSide){return NodeValue();}
-    
-    float NodeValue::operator%(float rightSide){return 0.0;}
 
-    float NodeValue::operator%(int rightSide){return 0;}
-
-    void* NodeValue::operator%(void* rightSide){return NULL;}
-
-    //-----------------------Object Operators Methods END-----------------------
+    #pragma endregion
+    #pragma endregion
+    #pragma endregion
 }
