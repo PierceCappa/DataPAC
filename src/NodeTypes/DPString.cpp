@@ -41,11 +41,11 @@ namespace DataPAC
         free(this->Value);
     }
 
-    NodeValue* DPString::createNewNode(){return new DPString();}
+    NodeValue* DPString::CreateNewNode(){return new DPString();}
     
-    NodeValue* DPString::createNewNode(char* newValue, int length){return new DPString(newValue, length);}
+    NodeValue* DPString::CreateNewNode(char* newValue, int length){return new DPString(newValue, length);}
 
-    NodeValue* DPString::createNewNode(void* newValue)
+    NodeValue* DPString::CreateNewNode(void* newValue)
     {
         try
         {
@@ -57,13 +57,13 @@ namespace DataPAC
         }    
     }
 
-    NodeValue* DPString::createNewNode(NodeValue newValue){return new DPString(newValue.toString());}
+    NodeValue* DPString::CreateNewNode(NodeValue newValue){return new DPString(newValue.toString());}
 
-    NodeValue* DPString::createNewNode(int newValue){return new DPString(std::to_string(newValue));}
+    NodeValue* DPString::CreateNewNode(int newValue){return new DPString(std::to_string(newValue));}
 
-    NodeValue* DPString::createNewNode(float newValue){return new DPString(std::to_string(newValue));}
+    NodeValue* DPString::CreateNewNode(float newValue){return new DPString(std::to_string(newValue));}
         
-    NodeValue* DPString::createNewNode(std::string newValue){return new DPString(newValue);}
+    NodeValue* DPString::CreateNewNode(std::string newValue){return new DPString(newValue);}
 
     #pragma endregion
     #pragma region >>__________ Setters _____________________________________________________________________________________________
@@ -156,7 +156,7 @@ namespace DataPAC
     #pragma endregion
     #pragma region >>__________ NodeTypeOpertors ____________________________________________________________________________________
 
-    ValueType DPString::getType(){return ValueType::String;}
+    ValueType DPString::GetType(){return ValueType::String;}
 
     std::string DPString::toString(){return std::string(this->Value);}
 
@@ -166,11 +166,11 @@ namespace DataPAC
 
     int DPString::toInt(){return 0;}
 
-    bool DPString::isNumeric(){return false;}
+    bool DPString::IsNumeric(){return false;}
 
-    bool DPString::isContinous(){return true;}
+    bool DPString::IsContinous(){return true;}
 
-    bool DPString::isDiscrete(){return false;}
+    bool DPString::IsDiscrete(){return false;}
 
     unsigned int DPString::toHash(){return this->hash();}
 
@@ -179,7 +179,7 @@ namespace DataPAC
 
     bool DPString::operator==(NodeValue* rightSide)
     {
-        if(rightSide->getType() == ValueType::String)
+        if(rightSide->GetType() == ValueType::String)
         {
             return this->Value == rightSide->getValue();
         }
@@ -189,7 +189,7 @@ namespace DataPAC
 
     bool DPString::operator!=(NodeValue* rightSide)
     {
-        if(rightSide->getType() == ValueType::String)
+        if(rightSide->GetType() == ValueType::String)
         {
             return this->Value != rightSide->getValue();
         }
@@ -200,7 +200,7 @@ namespace DataPAC
 
     bool DPString::operator<(NodeValue* rightSide)
     {
-        if(rightSide->getType() < ValueType::String)
+        if(rightSide->GetType() < ValueType::String)
         {
             return this->Value < rightSide->getValue();
         }
@@ -211,7 +211,7 @@ namespace DataPAC
 
     bool DPString::operator>(NodeValue* rightSide)
     {
-        if(rightSide->getType() > ValueType::String)
+        if(rightSide->GetType() > ValueType::String)
         {
             return this->Value > rightSide->getValue();
         }
@@ -222,7 +222,7 @@ namespace DataPAC
 
     bool DPString::operator<=(NodeValue* rightSide)
     {
-        if(rightSide->getType() <= ValueType::String)
+        if(rightSide->GetType() <= ValueType::String)
         {
             return this->Value <= rightSide->getValue();
         }
@@ -233,7 +233,7 @@ namespace DataPAC
 
     bool DPString::operator>=(NodeValue* rightSide)
     {
-        if(rightSide->getType() >= ValueType::String)
+        if(rightSide->GetType() >= ValueType::String)
         {
             return this->Value >= rightSide->getValue();
         }
@@ -245,7 +245,7 @@ namespace DataPAC
 
     NodeValue DPString::operator+(NodeValue* rightSide)
     {
-        if(rightSide->getType() == ValueType::String)
+        if(rightSide->GetType() == ValueType::String)
         {
             return DPString(strcat(this->Value, rightSide->toString().c_str()));
         }

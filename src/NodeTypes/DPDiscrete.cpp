@@ -23,19 +23,19 @@ namespace DataPAC
 
     DPDiscrete::~DPDiscrete(){}
 
-    NodeValue* DPDiscrete::createNewNode(){return new DPDiscrete();}
+    NodeValue* DPDiscrete::CreateNewNode(){return new DPDiscrete();}
     
-    NodeValue* DPDiscrete::createNewNode(char* newValue, int length){return new DPDiscrete(newValue, this->hashTable);}
+    NodeValue* DPDiscrete::CreateNewNode(char* newValue, int length){return new DPDiscrete(newValue, this->hashTable);}
 
-    NodeValue* DPDiscrete::createNewNode(std::string newValue){return new DPDiscrete(newValue, this->hashTable);}
+    NodeValue* DPDiscrete::CreateNewNode(std::string newValue){return new DPDiscrete(newValue, this->hashTable);}
 
-    NodeValue* DPDiscrete::createNewNode(int newValue){return new DPDiscrete(newValue, this->hashTable);}
+    NodeValue* DPDiscrete::CreateNewNode(int newValue){return new DPDiscrete(newValue, this->hashTable);}
 
-    NodeValue* DPDiscrete::createNewNode(void* newValue){return new DPDiscrete(*(std::string*)newValue, this->hashTable);}
+    NodeValue* DPDiscrete::CreateNewNode(void* newValue){return new DPDiscrete(*(std::string*)newValue, this->hashTable);}
 
-    NodeValue* DPDiscrete::createNewNode(NodeValue newValue){return new DPDiscrete(newValue.toString(), this->hashTable);}
+    NodeValue* DPDiscrete::CreateNewNode(NodeValue newValue){return new DPDiscrete(newValue.toString(), this->hashTable);}
 
-    NodeValue* DPDiscrete::createNewNode(float newValue){return new DPDiscrete(newValue, this->hashTable);}
+    NodeValue* DPDiscrete::CreateNewNode(float newValue){return new DPDiscrete(newValue, this->hashTable);}
 
     #pragma endregion
     #pragma region >>__________ Setters _____________________________________________________________________________________________
@@ -122,7 +122,7 @@ namespace DataPAC
     #pragma region >>__________ NodeTypeOpertors ____________________________________________________________________________________
 
 
-    ValueType DPDiscrete::getType(){ return Discrete; }
+    ValueType DPDiscrete::GetType(){ return Discrete; }
 
     std::string DPDiscrete::toString(){ return this->getString(this->Value); }
 
@@ -132,11 +132,11 @@ namespace DataPAC
 
     int DPDiscrete::toInt(){return this->Value;}
 
-    bool DPDiscrete::isNumeric(){return false;}
+    bool DPDiscrete::IsNumeric(){return false;}
 
-    bool DPDiscrete::isContinous(){return false;}
+    bool DPDiscrete::IsContinous(){return false;}
 
-    bool DPDiscrete::isDiscrete(){return true;}
+    bool DPDiscrete::IsDiscrete(){return true;}
 
     unsigned int DPDiscrete::toHash(){return this->hash(*(*this->hashTable)[this->Value]);}
 
@@ -147,7 +147,7 @@ namespace DataPAC
 
     bool DPDiscrete::operator==(NodeValue* rightSide)
     {
-        if(rightSide->isDiscrete())
+        if(rightSide->IsDiscrete())
         {
             return this->Value == rightSide->toInt();
         }
@@ -158,7 +158,7 @@ namespace DataPAC
 
     bool DPDiscrete::operator!=(NodeValue* rightSide)
     {
-        if(rightSide->isDiscrete())
+        if(rightSide->IsDiscrete())
         {
             return this->Value != rightSide->toInt();
         }
@@ -168,7 +168,7 @@ namespace DataPAC
 
     bool DPDiscrete::operator<(NodeValue* rightSide)
     {
-        if(rightSide->isDiscrete())
+        if(rightSide->IsDiscrete())
         {
             return this->Value < rightSide->toInt();
         }
@@ -179,7 +179,7 @@ namespace DataPAC
 
     bool DPDiscrete::operator>(NodeValue* rightSide)
     {
-        if(rightSide->isDiscrete())
+        if(rightSide->IsDiscrete())
         {
             return this->Value > rightSide->toInt();
         }
@@ -190,7 +190,7 @@ namespace DataPAC
 
     bool DPDiscrete::operator<=(NodeValue* rightSide)
     {
-        if(rightSide->isDiscrete())
+        if(rightSide->IsDiscrete())
         {
             return this->Value <= rightSide->toInt();
         }
@@ -202,7 +202,7 @@ namespace DataPAC
 
     bool DPDiscrete::operator>=(NodeValue* rightSide)
     {
-        if(rightSide->isDiscrete())
+        if(rightSide->IsDiscrete())
         {
             return this->Value >= rightSide->toInt();
         }

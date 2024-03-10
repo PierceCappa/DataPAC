@@ -28,11 +28,11 @@ namespace DataPAC
 
     DPFloat::~DPFloat(){}
 
-    NodeValue* DPFloat::createNewNode(){return new DPFloat();}
+    NodeValue* DPFloat::CreateNewNode(){return new DPFloat();}
     
-    NodeValue* DPFloat::createNewNode(char* newValue, int length){return new DPFloat(newValue);}
+    NodeValue* DPFloat::CreateNewNode(char* newValue, int length){return new DPFloat(newValue);}
 
-    NodeValue* DPFloat::createNewNode(void* newValue)
+    NodeValue* DPFloat::CreateNewNode(void* newValue)
     {
         try
         {
@@ -44,13 +44,13 @@ namespace DataPAC
         }    
     }
 
-    NodeValue* DPFloat::createNewNode(NodeValue newValue){return new DPFloat(newValue.toFloat());}
+    NodeValue* DPFloat::CreateNewNode(NodeValue newValue){return new DPFloat(newValue.toFloat());}
 
-    NodeValue* DPFloat::createNewNode(int newValue){return new DPFloat(newValue);}
+    NodeValue* DPFloat::CreateNewNode(int newValue){return new DPFloat(newValue);}
 
-    NodeValue* DPFloat::createNewNode(float newValue){return new DPFloat(newValue);}
+    NodeValue* DPFloat::CreateNewNode(float newValue){return new DPFloat(newValue);}
 
-    NodeValue* DPFloat::createNewNode(std::string newValue){return new DPFloat(std::stof(newValue));}
+    NodeValue* DPFloat::CreateNewNode(std::string newValue){return new DPFloat(std::stof(newValue));}
 
     #pragma endregion
     #pragma region >>__________ Setters _____________________________________________________________________________________________
@@ -137,7 +137,7 @@ namespace DataPAC
     #pragma endregion
     #pragma region >>__________ NodeTypeOpertors ____________________________________________________________________________________
 
-    ValueType DPFloat::getType(){return ValueType::Float;}
+    ValueType DPFloat::GetType(){return ValueType::Float;}
 
     std::string DPFloat::toString(){return std::to_string(this->Value);}
 
@@ -147,11 +147,11 @@ namespace DataPAC
 
     int DPFloat::toInt(){return this->Value;}
 
-    bool DPFloat::isNumeric(){return true;}
+    bool DPFloat::IsNumeric(){return true;}
 
-    bool DPFloat::isContinous(){return true;}
+    bool DPFloat::IsContinous(){return true;}
 
-    bool DPFloat::isDiscrete(){return false;}
+    bool DPFloat::IsDiscrete(){return false;}
 
     unsigned int DPFloat::toHash(){return this->Value;}
 
@@ -161,7 +161,7 @@ namespace DataPAC
 
     bool DPFloat::operator==(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return this->Value == rightSide->toFloat();
         }
@@ -172,7 +172,7 @@ namespace DataPAC
 
     bool DPFloat::operator!=(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return  this->Value != rightSide->toFloat();
         }
@@ -183,7 +183,7 @@ namespace DataPAC
 
     bool DPFloat::operator<(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return this->Value < rightSide->toFloat();
         }
@@ -193,7 +193,7 @@ namespace DataPAC
 
     bool DPFloat::operator>(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return this->Value > rightSide->toFloat();
         }
@@ -204,7 +204,7 @@ namespace DataPAC
 
     bool DPFloat::operator<=(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return this->Value <= rightSide->toFloat();
         }
@@ -215,7 +215,7 @@ namespace DataPAC
 
     bool DPFloat::operator>=(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return this->Value >= rightSide->toFloat();
         }
@@ -227,7 +227,7 @@ namespace DataPAC
 
     NodeValue DPFloat::operator+(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return DPFloat(this->Value + rightSide->toFloat());
         }
@@ -238,7 +238,7 @@ namespace DataPAC
 
     NodeValue DPFloat::operator-(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return DPFloat(this->Value - rightSide->toFloat());
         }
@@ -249,7 +249,7 @@ namespace DataPAC
 
     NodeValue DPFloat::operator*(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return DPFloat(this->Value * rightSide->toFloat());
         }
@@ -261,7 +261,7 @@ namespace DataPAC
 
     NodeValue DPFloat::operator/(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return DPFloat(this->Value / rightSide->toFloat());
         }
@@ -272,7 +272,7 @@ namespace DataPAC
 
     NodeValue DPFloat::operator%(NodeValue* rightSide)
     {
-        if(rightSide->isNumeric())
+        if(rightSide->IsNumeric())
         {
             return DPFloat();
         }

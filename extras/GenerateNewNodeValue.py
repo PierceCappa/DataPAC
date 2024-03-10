@@ -15,7 +15,7 @@ BooleanOperators = ["==", "!=", "<", ">", "<=", ">="]
 MathOperators = ["+", "-", "*", "/", "%"]
 OperatorTypes = ["float", "int", "std::string", "void*", "char*"]
 ConversionTypes = ["toFloat", "toInt", "toString"]
-ObjectChecks = ["isDiscrete", "isContinous", "isNumeric"]
+ObjectChecks = ["IsDiscrete", "IsContinous", "IsNumeric"]
 
 def getBool(Question):
     res = input(Question)

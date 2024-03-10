@@ -42,19 +42,19 @@ namespace DataPAC
 
         ~DPDiscrete();
 
-        NodeValue* createNewNode();
+        NodeValue* CreateNewNode();
         
-        NodeValue* createNewNode(char* newValue, int length);
+        NodeValue* CreateNewNode(char* newValue, int length);
 
-        NodeValue* createNewNode(void* newValue);
+        NodeValue* CreateNewNode(void* newValue);
 
-        NodeValue* createNewNode(NodeValue newValue);
+        NodeValue* CreateNewNode(NodeValue newValue);
 
-        NodeValue* createNewNode(int newValue);
+        NodeValue* CreateNewNode(int newValue);
 
-        NodeValue* createNewNode(float newValue);
+        NodeValue* CreateNewNode(float newValue);
         
-        NodeValue* createNewNode(std::string newValue);
+        NodeValue* CreateNewNode(std::string newValue);
 
         #pragma endregion
         #pragma region >>__________ Setters _________________________________________________________________________________________
@@ -75,7 +75,7 @@ namespace DataPAC
 		#pragma region >>__________ NodeTypeOpertors ________________________________________________________________________________
 
 		//returns a string of the current node type. Each node type should have a const string defined. returns "standardNode"
-        ValueType getType();
+        ValueType GetType();
 
         std::string toString();
 
@@ -85,11 +85,11 @@ namespace DataPAC
 
         int toInt();
 
-        bool isNumeric();
+        bool IsNumeric();
 
-        bool isContinous();
+        bool IsContinous();
 
-        bool isDiscrete();
+        bool IsDiscrete();
 
         unsigned int toHash();
 

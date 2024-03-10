@@ -176,7 +176,7 @@ namespace DataPAC
 		{
 			for(auto itj = newColumnTypes.begin(); itj != newColumnTypes.end(); itj++)
 			{
-				(*it)->Values.push_back((*itj)->createNewNode());
+				(*it)->Values.push_back((*itj)->CreateNewNode());
 			}
 			//(*it)->printRow();
 			func((*it));

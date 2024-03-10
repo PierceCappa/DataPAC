@@ -22,7 +22,7 @@ namespace DataPAC
         this->ColumnDict = defaultRow->getColumnDict();
         for(int i = 0; i < defaultRow->Values.size(); i++)
         {
-            this->Values.push_back(defaultRow->Values[i]->createNewNode());
+            this->Values.push_back(defaultRow->Values[i]->CreateNewNode());
         }
     }
 
@@ -33,11 +33,11 @@ namespace DataPAC
         {
             if(newNodeValues.size() > i)
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode(&newNodeValues[i]));
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode(&newNodeValues[i]));
             }
             else
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode());
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode());
             }
         }
     }
@@ -49,11 +49,11 @@ namespace DataPAC
         {
             if(newNodeValues.size() > i)
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode(newNodeValues[i], strlen(newNodeValues[i])));
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode(newNodeValues[i], strlen(newNodeValues[i])));
             }
             else
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode());
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode());
             }
         }
     }
@@ -65,11 +65,11 @@ namespace DataPAC
         {
             if(newNodeValues.size() > i)
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode(newNodeValues[i]));
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode(newNodeValues[i]));
             }
             else
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode());
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode());
             }
         }
     }
@@ -82,11 +82,11 @@ namespace DataPAC
             if(newNodeValues.size() > i)
             {
                 std::cout << newNodeValues[i];
-                this->Values.push_back(defaultRow->Values[i]->createNewNode(newNodeValues[i]));
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode(newNodeValues[i]));
             }
             else
             {
-                this->Values.push_back(defaultRow->Values[i]->createNewNode());
+                this->Values.push_back(defaultRow->Values[i]->CreateNewNode());
             }
         }
     }
